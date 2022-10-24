@@ -22,3 +22,4 @@ shape = SubResource( 1 )
 polygon = PoolVector2Array( 0, 0, -27, 65, -0.393738, 65, 27, 65 )
 
 [node name="LightPlayerRay" type="RayCast2D" parent="."]
+enabled = true

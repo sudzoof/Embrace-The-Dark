@@ -17,3 +17,4 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="LightPlayerRay" type="RayCast2D" parent="."]
+enabled = true
