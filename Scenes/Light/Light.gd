@@ -3,11 +3,15 @@ extends Light2D
 onready var collisionAreas : Array
 onready var rayCast2D = $LightPlayerRay
 
+export var id : int
+
 signal player_in_light
 
 func _ready():
 	add_to_group("Lights")
 	set_collision_areas()
+	for switch in get_tree().get_nodes_in_group("Switches"):
+		switch.connect("flipped_switch", self, "change_light")
 
 func _physics_process(delta):
 	if enabled:
@@ -47,3 +51,7 @@ func get_overlapping_union_bodies(array):
 					output.append(body)
 		bodies = output
 	return output
+
+func change_light(switch_id):
+	if id == switch_id:
+		enabled = not enabled

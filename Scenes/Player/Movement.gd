@@ -4,7 +4,7 @@ extends State
 var player: Player
 
 
-func _on_enter(from):
+func _on_enter(_args):
 	player = target as Player
 
 func _on_update(_delta):

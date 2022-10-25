@@ -14,8 +14,9 @@ export (int) var speed = 200
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_to_group("Boxes")
+	add_to_group("Interactable")
 	for player in get_tree().get_nodes_in_group("Player"):
-		player.connect("interacting_with_box", self, "on_interaction")
+		player.connect("interact", self, "on_interaction")
 	return
 
 
@@ -27,11 +28,10 @@ func _physics_process(delta):
 	if interacted:
 		interacted = false
 		move_and_collide(velocity * delta)
-		#
 
-func on_interaction(player_velocity, box):
+func on_interaction(box, _msg):
 	if box == self:
 		print("Interacting with Box")
 		interacted = true
-		velocity = player_velocity
+		velocity = _msg["speed"]
 	return

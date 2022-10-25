@@ -4,7 +4,7 @@ extends State
 var player: Player
 var interact_object: Object
 
-func _on_enter(from):
+func _on_enter(_args):
 	print("Interacting")
 	player = target as Player
 	if not player.is_on_wall():
@@ -18,8 +18,16 @@ func _on_update(_delta):
 		change_state("Movement")
 
 func change_to_sub_state(object):
-	if object is Box:
+	if not object:
+		change_state("Movement")
+	elif object.is_in_group("Boxes"):
 		change_state("BoxInteract")
 		return
-	
-	change_state("Movement")
+	elif object.is_in_group("Switches"):
+		change_state("SwitchInteract")
+		return
+	else:
+		change_state("Movement")
+
+func _on_exit(_args):
+	player.interacting_with = null

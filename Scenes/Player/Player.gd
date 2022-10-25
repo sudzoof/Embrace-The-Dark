@@ -9,14 +9,14 @@ var direction = Vector2()
 
 var interacting_with : Object
 
-signal interacting_with_box(velocity, box)
+signal interact(object, _msg)
 
 func _ready():
 	add_to_group("Player")
 	for light in get_tree().get_nodes_in_group("Lights"):
 		light.connect("player_in_light", self, "on_contact_with_light")
-	for box in get_tree().get_nodes_in_group("Boxes"):
-		connect("interacting_with_box", box, "on_interaction")
+	for box in get_tree().get_nodes_in_group("Interactable"):
+		connect("interact", box, "on_interaction")
 
 func get_input() -> Vector2:
 	var velocity = Vector2()
