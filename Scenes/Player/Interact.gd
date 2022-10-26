@@ -10,6 +10,7 @@ func _on_enter(_args):
 	if not player.is_on_wall():
 		change_state("Movement")
 		return
+	
 	player.interacting_with = player.get_object_in_front()
 	change_to_sub_state(player.interacting_with)
 
@@ -31,3 +32,4 @@ func change_to_sub_state(object):
 
 func _on_exit(_args):
 	player.interacting_with = null
+
