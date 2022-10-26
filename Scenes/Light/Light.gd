@@ -1,9 +1,15 @@
-extends Light2D
+extends Node2D
 
 onready var collisionAreas : Array
 onready var rayCast2D = $LightPlayerRay
 
+onready var light = $Light
+onready var light_origin = $LightOrigin
+
 export var id : int
+export var color = Color(1.0, 1.0, 1.0, 1.0)
+
+export var radius = 128.0
 
 signal player_in_light
 
@@ -12,9 +18,12 @@ func _ready():
 	set_collision_areas()
 	for switch in get_tree().get_nodes_in_group("Switches"):
 		switch.connect("flipped_switch", self, "change_light")
+	light.color = color
+	light_origin.modulate = color
+	light.scale = Vector2(radius / 128.0, radius / 128.0)
 
 func _physics_process(delta):
-	if enabled:
+	if light.enabled:
 		for body in get_overlapping_union_bodies(collisionAreas):
 			if body.is_in_group("Player"):
 				check_cast_on_player(body)
@@ -54,4 +63,4 @@ func get_overlapping_union_bodies(array):
 
 func change_light(switch_id):
 	if id == switch_id:
-		enabled = not enabled
+		light.enabled = not light.enabled
