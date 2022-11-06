@@ -9,7 +9,7 @@ var interacted = false
 # var a = 2
 # var b = "text"
 
-export (int) var speed = 200
+export (int) var speed = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,7 +27,7 @@ func _ready():
 func _physics_process(delta):
 	if interacted:
 		interacted = false
-		move_and_collide(velocity * delta)
+		move_and_slide(velocity)
 
 func on_interaction(box, _msg):
 	if box == self:
