@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 class_name Player
 
-export (int) var speed = 200
+export (int) var speed = 100
 
 var velocity = Vector2()
 var direction = Vector2()
@@ -10,6 +10,7 @@ var direction = Vector2()
 var interacting_with : Object
 
 signal interact(object, _msg)
+signal hit_by_light
 
 func _ready():
 	add_to_group("Player")
@@ -17,6 +18,7 @@ func _ready():
 		light.connect("player_in_light", self, "on_contact_with_light")
 	for box in get_tree().get_nodes_in_group("Interactable"):
 		connect("interact", box, "on_interaction")
+	$XSM.change_state("Idle")
 
 func get_input() -> Vector2:
 	var velocity = Vector2()
@@ -69,7 +71,7 @@ func get_object_in_front() -> Object:
 	return ray_cast.get_collider()
 
 func on_contact_with_light():
-	print("In Light")
+	emit_signal("hit_by_light")
 
 func colliding_with(object: Object) -> bool:
 	for i in get_slide_count():

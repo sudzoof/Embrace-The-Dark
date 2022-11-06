@@ -11,6 +11,9 @@ func _on_update(_delta):
 	var input_dir = player.get_input()
 	player.velocity = input_dir.normalized() * player.speed
 	
+	if input_dir == Vector2.ZERO:
+		var _s = change_state("Idle")
+	
 	if input_dir != Vector2.ZERO:
 		player.direction = input_dir
 	

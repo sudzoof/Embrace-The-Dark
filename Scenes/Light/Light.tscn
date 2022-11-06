@@ -13,16 +13,17 @@ script = ExtResource( 2 )
 scale = Vector2( 0.125, 0.125 )
 texture = ExtResource( 3 )
 
-[node name="Light" type="Light2D" parent="."]
+[node name="LightEmitter" type="Light2D" parent="."]
 texture = ExtResource( 3 )
-color = Color( 1, 0.396078, 0.396078, 1 )
 shadow_enabled = true
 
-[node name="LightArea" type="Area2D" parent="Light"]
+[node name="LightArea" type="Area2D" parent="LightEmitter"]
+collision_layer = 2
 
-[node name="LightShape" type="CollisionShape2D" parent="Light/LightArea"]
+[node name="LightShape" type="CollisionShape2D" parent="LightEmitter/LightArea"]
 shape = SubResource( 1 )
 
 [node name="LightPlayerRay" type="RayCast2D" parent="."]
 position = Vector2( 2.38419e-07, -5.96046e-08 )
 enabled = true
+collide_with_areas = true
